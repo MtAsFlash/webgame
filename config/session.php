@@ -42,8 +42,8 @@ return [
         ]
     ],
 
-    'session_name' => 'PHPSID',
-    
+    'session_name' => 'WEBMAN_HUICMF2',
+
     'auto_update_timestamp' => false,
 
     'lifetime' => 7*24*60*60,
@@ -53,11 +53,11 @@ return [
     'cookie_path' => '/',
 
     'domain' => '',
-    
+
     'http_only' => true,
 
     'secure' => false,
-    
+
     'same_site' => '',
 
     'gc_probability' => [1, 1000],
