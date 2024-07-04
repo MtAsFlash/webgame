@@ -7,7 +7,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Dotenv\Dotenv;
 use process\Monitor;
 use support\App;
-use Workerman\Worker;
 
 ini_set('display_errors', 'on');
 error_reporting(E_ALL);
@@ -32,7 +31,7 @@ if (!is_dir($runtimeProcessPath)) {
     mkdir($runtimeProcessPath);
 }
 $processFiles = [
-    __DIR__ . DIRECTORY_SEPARATOR . 'start.php'
+    __DIR__ . DIRECTORY_SEPARATOR . 'start.php',
 ];
 foreach (config('process', []) as $processName => $config) {
     $processFiles[] = write_process_file($runtimeProcessPath, $processName, '');
@@ -52,8 +51,7 @@ foreach (config('plugin', []) as $firm => $projects) {
     }
 }
 
-function write_process_file($runtimeProcessPath, $processName, $firm): string
-{
+function write_process_file($runtimeProcessPath, $processName, $firm): string {
     $processParam = $firm ? "plugin.$firm.$processName" : $processName;
     $configParam = $firm ? "config('plugin.$firm.process')['$processName']" : "config('process')['$processName']";
     $fileContent = <<<EOF
@@ -93,8 +91,7 @@ if ($monitorConfig = config('process.monitor.constructor')) {
     $monitor = new Monitor(...array_values($monitorConfig));
 }
 
-function popen_processes($processFiles)
-{
+function popen_processes($processFiles) {
     $cmd = '"' . PHP_BINARY . '" ' . implode(' ', $processFiles);
     $descriptorspec = [STDIN, STDOUT, STDOUT];
     $resource = proc_open($cmd, $descriptorspec, $pipes, null, null, ['bypass_shell' => true]);

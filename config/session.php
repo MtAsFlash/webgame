@@ -13,8 +13,6 @@
  */
 
 use Webman\Session\FileSessionHandler;
-use Webman\Session\RedisSessionHandler;
-use Webman\Session\RedisClusterSessionHandler;
 
 return [
 
@@ -39,16 +37,16 @@ return [
             'timeout' => 2,
             'auth' => '',
             'prefix' => 'redis_session_',
-        ]
+        ],
     ],
 
     'session_name' => 'WEBMAN_HUICMF2',
 
     'auto_update_timestamp' => false,
 
-    'lifetime' => 7*24*60*60,
+    'lifetime' => 7 * 24 * 60 * 60,
 
-    'cookie_lifetime' => 365*24*60*60,
+    'cookie_lifetime' => 365 * 24 * 60 * 60,
 
     'cookie_path' => '/',
 

@@ -1,7 +1,7 @@
 <?php
 
-use support\lib\IpToAddress;
 use Shopwwi\LaravelCache\Cache;
+use support\lib\IpToAddress;
 use think\facade\Db;
 
 /**
@@ -11,9 +11,8 @@ use think\facade\Db;
  *
  * @return array|string
  */
-if ( ! function_exists('get_config')) {
-    function get_config($key = '')
-    {
+if (!function_exists('get_config')) {
+    function get_config($key = '') {
         $configs = [];
         if (Cache::get('cacheSystemConfig')) {
             $data = Cache::get('cacheSystemConfig');
@@ -24,7 +23,7 @@ if ( ! function_exists('get_config')) {
         foreach ($data as $val) {
             $configs[$val['name']] = $val['value'];
         }
-        if ( ! $key) {
+        if (!$key) {
             return $configs;
         } else {
             return array_key_exists($key, $configs) ? $configs[$key] : '';
@@ -36,13 +35,12 @@ if ( ! function_exists('get_config')) {
  * 获取客户端IP地址
  *
  * @param integer $type 返回类型 0 返回IP地址 1 返回IPV4地址数字
- * @param boolean $adv  是否进行高级模式获取（有可能被伪装）
+ * @param boolean $adv 是否进行高级模式获取（有可能被伪装）
  *
  * @return string
  */
-if ( ! function_exists('get_client_ip')) {
-    function get_client_ip($type = 0, $adv = true)
-    {
+if (!function_exists('get_client_ip')) {
+    function get_client_ip($type = 0, $adv = true) {
         return request()->getRealIp($safe_mode = true);
     }
 }
@@ -54,10 +52,9 @@ if ( ! function_exists('get_client_ip')) {
  *
  * @return string
  */
-function getIpToArea($clientIP)
-{
+function getIpToArea($clientIP) {
     $ipToAddress = new IpToAddress();
-    $res         = $ipToAddress->ipToAddress($clientIP);
+    $res = $ipToAddress->ipToAddress($clientIP);
 
     return $res;
 }
@@ -69,13 +66,12 @@ function getIpToArea($clientIP)
  *
  * @return void or string
  */
-if ( ! function_exists('dump')) {
-    function dump($var)
-    {
+if (!function_exists('dump')) {
+    function dump($var) {
         ob_start();
         var_dump($var);
         $output = ob_get_clean();
-        if ( ! extension_loaded('xdebug')) {
+        if (!extension_loaded('xdebug')) {
             $output = preg_replace('/\]\=\>\n(\s+)/m', '] => ', $output);
         }
 
@@ -92,8 +88,7 @@ if ( ! function_exists('dump')) {
  *
  * @return mixed|string
  */
-function getPackageVersion(string $package)
-{
+function getPackageVersion(string $package) {
     $installed_php = base_path('vendor/composer/installed.php');
     if (is_file($installed_php)) {
         $packages = include $installed_php;

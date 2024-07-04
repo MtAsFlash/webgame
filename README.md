@@ -292,9 +292,13 @@ var ruleInit = treeTable.render({
 最好的命名规则为：当前规则名称+Table，例如上面的：ruleTable，意为：角色表格。
 
 ### 数据表格（layui）拖拽排序方法：
+
 > 参考：https://www.workerman.net/a/1677
+
 #### html页面：
+
 引入soulTable：
+
 ```javascript
 layui.use(['table','soulTable'], function () {
     var soulTable = layui.soulTable;
@@ -314,7 +318,9 @@ layui.use(['table','soulTable'], function () {
     })
 })
 ```
+
 #### 后台控制器处理：
+
 ```php
 //引入排序
 use plugin\admin\app\servicers\DragdoneUpService;

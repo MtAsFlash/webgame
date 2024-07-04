@@ -25,8 +25,7 @@ use Workerman\Worker;
  * Class FileMonitor
  * @package process
  */
-class Monitor
-{
+class Monitor {
     /**
      * @var array
      */
@@ -46,8 +45,7 @@ class Monitor
      * Pause monitor
      * @return void
      */
-    public static function pause()
-    {
+    public static function pause() {
         file_put_contents(static::$lockFile, time());
     }
 
@@ -55,8 +53,7 @@ class Monitor
      * Resume monitor
      * @return void
      */
-    public static function resume(): void
-    {
+    public static function resume(): void {
         clearstatcache();
         if (is_file(static::$lockFile)) {
             unlink(static::$lockFile);
@@ -67,8 +64,7 @@ class Monitor
      * Whether monitor is paused
      * @return bool
      */
-    public static function isPaused(): bool
-    {
+    public static function isPaused(): bool {
         clearstatcache();
         return file_exists(static::$lockFile);
     }
@@ -79,8 +75,7 @@ class Monitor
      * @param $monitorExtensions
      * @param array $options
      */
-    public function __construct($monitorDir, $monitorExtensions, array $options = [])
-    {
+    public function __construct($monitorDir, $monitorExtensions, array $options = []) {
         static::resume();
         $this->paths = (array)$monitorDir;
         $this->extensions = $monitorExtensions;
@@ -108,8 +103,7 @@ class Monitor
      * @param $monitorDir
      * @return bool
      */
-    public function checkFilesChange($monitorDir): bool
-    {
+    public function checkFilesChange($monitorDir): bool {
         static $lastMtime, $tooManyFilesCheck;
         if (!$lastMtime) {
             $lastMtime = time();
@@ -127,7 +121,7 @@ class Monitor
         }
         $count = 0;
         foreach ($iterator as $file) {
-            $count ++;
+            $count++;
             /** var SplFileInfo $file */
             if (is_dir($file->getRealPath())) {
                 continue;
@@ -135,7 +129,7 @@ class Monitor
             // check mtime
             if (in_array($file->getExtension(), $this->extensions, true) && $lastMtime < $file->getMTime()) {
                 $var = 0;
-                exec('"'.PHP_BINARY . '" -l ' . $file, $out, $var);
+                exec('"' . PHP_BINARY . '" -l ' . $file, $out, $var);
                 $lastMtime = $file->getMTime();
                 if ($var) {
                     continue;
@@ -160,8 +154,7 @@ class Monitor
     /**
      * @return bool
      */
-    public function checkAllFilesChange(): bool
-    {
+    public function checkAllFilesChange(): bool {
         if (static::isPaused()) {
             return false;
         }
@@ -177,8 +170,7 @@ class Monitor
      * @param $memoryLimit
      * @return void
      */
-    public function checkMemory($memoryLimit)
-    {
+    public function checkMemory($memoryLimit) {
         if (static::isPaused() || $memoryLimit <= 0) {
             return;
         }
@@ -208,8 +200,7 @@ class Monitor
      * Get memory limit
      * @return float
      */
-    protected function getMemoryLimit($memoryLimit)
-    {
+    protected function getMemoryLimit($memoryLimit) {
         if ($memoryLimit === 0) {
             return 0;
         }

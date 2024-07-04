@@ -4,8 +4,7 @@ namespace app\model;
 
 use support\Model;
 
-class Test extends Model
-{
+class Test extends Model {
     /**
      * The table associated with the model.
      *

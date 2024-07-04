@@ -17,7 +17,7 @@ return [
         'memcached' => [
             'driver' => 'memcached',
             'persistent_id' => 'MEMCACHED_PERSISTENT_ID',
-            'sasl' => ['MEMCACHED_USERNAME','MEMCACHED_PASSWORD'],
+            'sasl' => ['MEMCACHED_USERNAME', 'MEMCACHED_PASSWORD'],
             'options' => [
                 // Memcached::OPT_CONNECT_TIMEOUT => 2000,
             ],
@@ -45,12 +45,12 @@ return [
             'key' => 'AWS_ACCESS_KEY_ID',
             'secret' => 'AWS_SECRET_ACCESS_KEY',
             'region' => 'us-east-1',
-            'table' =>'cache',
+            'table' => 'cache',
             'endpoint' => 'DYNAMODB_ENDPOINT',
         ],
         'octane' => [
             'driver' => 'octane',
         ],
     ],
-    'prefix' => 'shopwwi_cache_'
+    'prefix' => 'shopwwi_cache_',
 ];
